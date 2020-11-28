@@ -2,7 +2,12 @@
 import logging
 from datetime import timedelta
 
-from homeassistant.components.binary_sensor import BinarySensorEntity
+from homeassistant.components.binary_sensor import (
+    DEVICE_CLASS_CONNECTIVITY,
+    DEVICE_CLASS_POWER,
+    DEVICE_CLASS_HEAT,
+    BinarySensorEntity,
+)
 from homeassistant.const import CONF_NAME, CONF_BINARY_SENSORS
 from homeassistant.helpers.entity import Entity
 
@@ -24,7 +29,7 @@ SCAN_INTERVAL = timedelta(seconds=BINARY_SENSOR_SCAN_INTERVAL_SECS)
 
 _LOGGER = logging.getLogger(__name__)
 
-# Binary Sensor types are defined like: Name, units, icon
+# Binary Sensor types are defined like: Name, class, icon
 BINARY_SENSORS = {
     BINARY_SENSOR_UPDATE_DOCKER: [NAME_UPDATE_DOCKER, None, "mdi:package-down"],
     BINARY_SENSOR_UPDATE_HASSIO: [NAME_UPDATE_HASSIO, None, "mdi:package-down"],

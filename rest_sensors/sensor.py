@@ -4,6 +4,20 @@ from datetime import timedelta
 
 from homeassistant.const import CONF_NAME, CONF_SENSORS
 from homeassistant.helpers.entity import Entity
+from homeassistant.const import (
+    DEVICE_CLASS_BATTERY,
+    DEVICE_CLASS_CURRENT,
+    DEVICE_CLASS_ENERGY,
+    DEVICE_CLASS_HUMIDITY,
+    DEVICE_CLASS_ILLUMINANCE,
+    DEVICE_CLASS_POWER,
+    DEVICE_CLASS_POWER_FACTOR,
+    DEVICE_CLASS_PRESSURE,
+    DEVICE_CLASS_SIGNAL_STRENGTH,
+    DEVICE_CLASS_TEMPERATURE,
+    DEVICE_CLASS_TIMESTAMP,
+    DEVICE_CLASS_VOLTAGE,
+)
 
 # Internal component sensor names
 SENSOR_NBU_USD = "currency_usd"
@@ -54,25 +68,25 @@ SCAN_INTERVAL = timedelta(seconds=SENSOR_SCAN_INTERVAL_SECS)
 
 _LOGGER = logging.getLogger(__name__)
 
-# Sensor types are defined like: Name, units, icon
+# Sensor types are defined like: Name, units, class, icon
 
 SENSORS = {
-    SENSOR_NBU_USD: [NAME_NBU_USD, UNITS, ICON_USD],
-    SENSOR_NBU_EUR: [NAME_NBU_EUR, UNITS, ICON_EUR],
-    SENSOR_NBU_EUR_FIRST: [NAME_NBU_EUR_FIRST, UNITS, ICON_EUR],
-    SENSOR_NBU_USD_FIRST: [NAME_NBU_USD_FIRST, UNITS, ICON_USD],
-    SENSOR_MONOBANK_USD_BID: [NAME_MONOBANK_USD_BID, UNITS, ICON_USD],
-    SENSOR_MONOBANK_USD_ASK: [NAME_MONOBANK_USD_ASK, UNITS, ICON_USD],
-    SENSOR_MONOBANK_EUR_BID: [NAME_MONOBANK_EUR_BID, UNITS, ICON_EUR],
-    SENSOR_MONOBANK_EUR_ASK: [NAME_MONOBANK_EUR_ASK, UNITS, ICON_EUR],
-    SENSOR_PRIVATBANK_USD_ASK: [NAME_PRIVATBANK_USD_ASK, UNITS, ICON_USD],
-    SENSOR_PRIVATBANK_USD_BID: [NAME_PRIVATBANK_USD_BID, UNITS, ICON_USD],
-    SENSOR_PRIVATBANK_EUR_ASK: [NAME_PRIVATBANK_EUR_ASK, UNITS, ICON_EUR],
-    SENSOR_PRIVATBANK_EUR_BID: [NAME_PRIVATBANK_EUR_BID, UNITS, ICON_EUR],
-    SENSOR_KREDOBANK_USD_ASK: [NAME_KREDOBANK_USD_ASK, UNITS, ICON_USD],
-    SENSOR_KREDOBANK_USD_BID: [NAME_KREDOBANK_USD_BID, UNITS, ICON_USD],
-    SENSOR_KREDOBANK_EUR_ASK: [NAME_KREDOBANK_EUR_ASK, UNITS, ICON_EUR],
-    SENSOR_KREDOBANK_EUR_BID: [NAME_KREDOBANK_EUR_BID, UNITS, ICON_EUR],
+    SENSOR_NBU_USD: [NAME_NBU_USD, UNITS, None, ICON_USD],
+    SENSOR_NBU_EUR: [NAME_NBU_EUR, UNITS, None, ICON_EUR],
+    SENSOR_NBU_EUR_FIRST: [NAME_NBU_EUR_FIRST, UNITS, None, ICON_EUR],
+    SENSOR_NBU_USD_FIRST: [NAME_NBU_USD_FIRST, UNITS, None, ICON_USD],
+    SENSOR_MONOBANK_USD_BID: [NAME_MONOBANK_USD_BID, UNITS, None, ICON_USD],
+    SENSOR_MONOBANK_USD_ASK: [NAME_MONOBANK_USD_ASK, UNITS, None, ICON_USD],
+    SENSOR_MONOBANK_EUR_BID: [NAME_MONOBANK_EUR_BID, UNITS, None, ICON_EUR],
+    SENSOR_MONOBANK_EUR_ASK: [NAME_MONOBANK_EUR_ASK, UNITS, None, ICON_EUR],
+    SENSOR_PRIVATBANK_USD_ASK: [NAME_PRIVATBANK_USD_ASK, UNITS, None, ICON_USD],
+    SENSOR_PRIVATBANK_USD_BID: [NAME_PRIVATBANK_USD_BID, UNITS, None, ICON_USD],
+    SENSOR_PRIVATBANK_EUR_ASK: [NAME_PRIVATBANK_EUR_ASK, UNITS, None, ICON_EUR],
+    SENSOR_PRIVATBANK_EUR_BID: [NAME_PRIVATBANK_EUR_BID, UNITS, None, ICON_EUR],
+    SENSOR_KREDOBANK_USD_ASK: [NAME_KREDOBANK_USD_ASK, UNITS, None, ICON_USD],
+    SENSOR_KREDOBANK_USD_BID: [NAME_KREDOBANK_USD_BID, UNITS, None, ICON_USD],
+    SENSOR_KREDOBANK_EUR_ASK: [NAME_KREDOBANK_EUR_ASK, UNITS, None, ICON_EUR],
+    SENSOR_KREDOBANK_EUR_BID: [NAME_KREDOBANK_EUR_BID, UNITS, None, ICON_EUR],
 }
 
 def setup_platform(hass, config, add_entities, discovery_info=None):
@@ -101,7 +115,8 @@ class BankRestSensor(Entity):
         self._sensor_type = sensor_type
         self._state = None
         self._unit_of_measurement = SENSORS[sensor_type][1]
-        self._icon = SENSORS[sensor_type][2]
+        self._icon = SENSORS[sensor_type][3]
+        self._device_class = SENSORS[sensor_type][2]
 
     @property
     def name(self):
@@ -118,6 +133,11 @@ class BankRestSensor(Entity):
         """Return the state of the sensor."""
         return self._state
 
+    @property
+    def device_class(self):
+        """Return device class."""
+        return self._device_class
+        
     @property
     def device_state_attributes(self):
         """Return the state attributes."""
