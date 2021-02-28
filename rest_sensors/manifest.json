@@ -1,0 +1,9 @@
+{
+  "domain": "rest_sensors",
+  "name": "REST sensors",
+  "documentation": "https://github.com/chomupashchuk/ha-rest-sensors",
+  "requirements": [],
+  "dependencies": [],
+  "codeowners": ["@chomupashchuk"],
+  "version": "1.0"
+}
