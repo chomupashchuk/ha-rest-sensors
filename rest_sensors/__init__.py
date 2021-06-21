@@ -38,7 +38,7 @@ from .sensor import (
 )
 from .binary_sensor import (
     BINARY_SENSORS,
-    BINARY_SENSOR_UPDATE_DOCKER,
+    # BINARY_SENSOR_UPDATE_DOCKER,
     BINARY_SENSOR_UPDATE_HASSIO,
 )
 
