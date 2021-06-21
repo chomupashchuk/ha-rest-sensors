@@ -17,11 +17,11 @@ from .sensor import (
 )
 
 # Internal component binary sensor names
-BINARY_SENSOR_UPDATE_DOCKER = "ha_docker_update"
+# BINARY_SENSOR_UPDATE_DOCKER = "ha_docker_update"
 BINARY_SENSOR_UPDATE_HASSIO = "ha_hassio_update"
 
 # Home Assistant names
-NAME_UPDATE_DOCKER = "HA Docker Update Available"
+# NAME_UPDATE_DOCKER = "HA Docker Update Available"
 NAME_UPDATE_HASSIO = "HA Hassio Update Available"
 
 BINARY_SENSOR_SCAN_INTERVAL_SECS = 5
@@ -31,7 +31,7 @@ _LOGGER = logging.getLogger(__name__)
 
 # Binary Sensor types are defined like: Name, class, icon
 BINARY_SENSORS = {
-    BINARY_SENSOR_UPDATE_DOCKER: [NAME_UPDATE_DOCKER, None, "mdi:package-down"],
+    # BINARY_SENSOR_UPDATE_DOCKER: [NAME_UPDATE_DOCKER, None, "mdi:package-down"],
     BINARY_SENSOR_UPDATE_HASSIO: [NAME_UPDATE_HASSIO, None, "mdi:package-down"],
 }
 

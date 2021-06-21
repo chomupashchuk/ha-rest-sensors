@@ -51,7 +51,7 @@ NBU_USD_FIRST_LINK = "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchan
 MONOBANK_LINK = "https://api.monobank.ua/bank/currency"
 PRIVATBANK_LINK = "https://api.privatbank.ua/p24api/exchange_rates?json&date={}"
 KREDOBANK_LINK = "https://kredobank.com.ua/info/kursy-valyut/commercial"
-DOCKER_LINK = "https://registry.hub.docker.com/v2/repositories/homeassistant/home-assistant/tags/?page_size=100"
+# DOCKER_LINK = "https://registry.hub.docker.com/v2/repositories/homeassistant/home-assistant/tags/?page_size=100"
 HASSIO_LINK = "https://version.home-assistant.io/stable.json"
 
 HTTP_TIMEOUT = 60
@@ -249,48 +249,48 @@ class BankRestHandler():
         self._sensor_data[SENSOR_KREDOBANK_EUR_ASK] = currency_eur_ask
         self._sensor_data[SENSOR_KREDOBANK_EUR_BID] = currency_eur_bid
          
-        # Docker version
+        # # Docker version
         
-        online_ver = None
-        update = None
-        major_update = None
-        try:
-            url = DOCKER_LINK
-            resp = session.get(
-                url,
-                auth=token,
-                verify=True,
-                timeout=HTTP_TIMEOUT)
-            if resp.ok:
-                json_data = resp.json()
+        # online_ver = None
+        # update = None
+        # major_update = None
+        # try:
+        #     url = DOCKER_LINK
+        #     resp = session.get(
+        #         url,
+        #         auth=token,
+        #         verify=True,
+        #         timeout=HTTP_TIMEOUT)
+        #     if resp.ok:
+        #         json_data = resp.json()
                 
-                for tag in json_data["results"]:
-                    if tag["name"] in [
-                        "latest",
-                        "landingpage",
-                        "rc",
-                        "beta",
-                        "stable",
-                    ]:
-                        continue
-                    elif "dev" in tag["name"]:
-                        continue
-                    elif re.search(r"\b.+b\d", tag["name"]):
-                        continue
-                    else:
-                        online_ver = tag["name"]
-                        break
+        #         for tag in json_data["results"]:
+        #             if tag["name"] in [
+        #                 "latest",
+        #                 "landingpage",
+        #                 "rc",
+        #                 "beta",
+        #                 "stable",
+        #             ]:
+        #                 continue
+        #             elif "dev" in tag["name"]:
+        #                 continue
+        #             elif re.search(r"\b.+b\d", tag["name"]):
+        #                 continue
+        #             else:
+        #                 online_ver = tag["name"]
+        #                 break
                 
-                update, major_update = self._check_update(online_ver)
+        #         update, major_update = self._check_update(online_ver)
                 
-        except Exception as ex:
-            _LOGGER.warning("Remote version error {}".format(ex))
+        # except Exception as ex:
+        #     _LOGGER.warning("Remote version error {}".format(ex))
                    
-        self._sensor_data[BINARY_SENSOR_UPDATE_DOCKER] = update
-        self._sensor_attrib[BINARY_SENSOR_UPDATE_DOCKER] = dict()
-        self._sensor_attrib[BINARY_SENSOR_UPDATE_DOCKER]["Installed"] = LOCAL_VERSION
-        self._sensor_attrib[BINARY_SENSOR_UPDATE_DOCKER]["Online"] = online_ver
-        self._sensor_attrib[BINARY_SENSOR_UPDATE_DOCKER]["Major"] = major_update
+        # self._sensor_data[BINARY_SENSOR_UPDATE_DOCKER] = update
+        # self._sensor_attrib[BINARY_SENSOR_UPDATE_DOCKER] = dict()
+        # self._sensor_attrib[BINARY_SENSOR_UPDATE_DOCKER]["Installed"] = LOCAL_VERSION
+        # self._sensor_attrib[BINARY_SENSOR_UPDATE_DOCKER]["Online"] = online_ver
+        # self._sensor_attrib[BINARY_SENSOR_UPDATE_DOCKER]["Major"] = major_update
              
         # Hassio version
         
