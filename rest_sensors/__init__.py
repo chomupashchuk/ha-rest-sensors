@@ -231,13 +231,13 @@ class BankRestHandler():
                 html_data = resp.text.splitlines()
                 for line_num, line_str in enumerate(resp.text.splitlines()):
                     if '<td>840 USD</td>' in line_str:
-                        kredo_ask = int(html_data[line_num+2][html_data[line_num+2].find('<td>')+4:html_data[line_num+2].find('</td>')])/100
-                        kredo_bid = int(html_data[line_num+3][html_data[line_num+2].find('<td>')+4:html_data[line_num+2].find('</td>')])/100
+                        kredo_ask = float(re.findall(r'<td>.*<\/td>', html_data[line_num+2])[0][4:-5])
+                        kredo_bid = float(re.findall(r'<td>.*<\/td>', html_data[line_num+3])[0][4:-5])
                         currency_usd_ask = kredo_ask
                         currency_usd_bid = kredo_bid
                     if '<td>978 EUR</td>' in line_str:
-                        kredo_ask = int(html_data[line_num+2][html_data[line_num+2].find('<td>')+4:html_data[line_num+2].find('</td>')])/100
-                        kredo_bid = int(html_data[line_num+3][html_data[line_num+2].find('<td>')+4:html_data[line_num+2].find('</td>')])/100
+                        kredo_ask = float(re.findall(r'<td>.*<\/td>', html_data[line_num+2])[0][4:-5])
+                        kredo_bid = float(re.findall(r'<td>.*<\/td>', html_data[line_num+3])[0][4:-5])
                         currency_eur_ask = kredo_ask
                         currency_eur_bid = kredo_bid
         
