@@ -84,7 +84,7 @@ class BankRestBinarySensor(BinarySensorEntity):
     #    return self._is_on
 
     @property
-    def device_state_attributes(self):
+    def extra_state_attributes(self):
         """Return the state attributes."""
         if self._binary_sensor_type in BINARY_SENSORS:
             return self._api._sensor_attrib[self._binary_sensor_type]

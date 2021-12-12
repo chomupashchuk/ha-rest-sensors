@@ -139,7 +139,7 @@ class BankRestSensor(Entity):
         return self._device_class
         
     @property
-    def device_state_attributes(self):
+    def extra_state_attributes(self):
         """Return the state attributes."""
         if self._sensor_type in SENSORS:
             return self._api._sensor_attrib[self._sensor_type]
