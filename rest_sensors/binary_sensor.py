@@ -3,9 +3,6 @@ import logging
 from datetime import timedelta
 
 from homeassistant.components.binary_sensor import (
-    DEVICE_CLASS_CONNECTIVITY,
-    DEVICE_CLASS_POWER,
-    DEVICE_CLASS_HEAT,
     BinarySensorEntity,
 )
 from homeassistant.const import CONF_NAME, CONF_BINARY_SENSORS
